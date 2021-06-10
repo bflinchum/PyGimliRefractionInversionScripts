@@ -392,7 +392,7 @@ if __name__ == "__main__":
     x = np.array(data.sensorPositions())[:,0]
     for i in range(0,len(uniqShots_pwave)):
         tmp = int(uniqShots_pwave[i])
-        print(tmp)
+        #print(tmp)
         uniqShots_pwave_xLocs[i] = x[tmp]
     rmsUniqShots_pwave = np.zeros(len(uniqShots_pwave))
     shotNum = 0
