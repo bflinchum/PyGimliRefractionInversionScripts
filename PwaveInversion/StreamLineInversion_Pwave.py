@@ -184,7 +184,7 @@ if __name__ == "__main__":
     location as the second column, and travel-time (in seconds) in the third
     column 
     """
-    pickFile = 'CEF_2021_0315_Pwave_picks_after_allShots.txt' #Pick file from picker.py
+    pickFile = 'SCP_2014_0411.txt' #Pick file from picker.py
     
     """
     The topo file is a three column file sepearted by spaces. The first column
@@ -197,13 +197,13 @@ if __name__ == "__main__":
     projecting the VTK files to the topography. The old locs column will 
     match the locations in the pick file!!
     """
-    topoFile = 'CEF_2021_0315_LiDAR.txt'
+    topoFile = 'SCP_2014_0411_LiDAR.txt'
     
     
     #Line Location for spatially located VTK and GMT Files
     #MUST MATCH THE LOCATION USED TO EXTRACT THE TOPOGRAPHY!!!
-    SoL = [327658.40,3847006.43]
-    EoL = [327839.56,3847031.66]
+    SoL = [436465,3829900] 
+    EoL = [436455,3830372] 
     
     """    
     Set the errors for the inversion weighting. This uses a simple linear
@@ -213,8 +213,8 @@ if __name__ == "__main__":
     I usally fit about 5-6 ms on the farthest offset picks. Thus default values
     are maxError = 0.005 and minError = 0.001
     """
-    maxError = 0.002
-    minError = 0.002
+    maxError = 0.005
+    minError = 0.005
     
     """
     MESH PARAMTERS
@@ -227,9 +227,9 @@ if __name__ == "__main__":
         forward model is but at the cost of cmputaiton time. (sets 
         paraMaxCellSize in functino call)
     """
-    maxDepth = 100
+    maxDepth = 80
     meshDx = 0.1
-    maxTriArea = 3
+    maxTriArea = 7
     
     """
     INVERSION PARAMTERS
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     minVel = this is the minimum velocity at the top of the model
     maxVel = this is the maximum velocity at teh bottom of the model    
     """
-    smoothing = 50
+    smoothing = 100
     vertWeight = 0.2    
     minVel = 300
     maxVel = 4500
@@ -388,6 +388,12 @@ if __name__ == "__main__":
     pickTT = np.array(ra.data('t'))
     modTT = np.array(ra.inv.response)
     uniqShots_pwave = np.unique(shotLocs) 
+    uniqShots_pwave_xLocs = np.copy(uniqShots_pwave)
+    x = np.array(data.sensorPositions())[:0]
+    for i in range(0,len(uniqShots_pwave)):
+        tmp = int(uniqShots_pwave[i])
+        print(tmp)
+        uniqShots_pwave_xLocs[i] = x[tmp]
     rmsUniqShots_pwave = np.zeros(len(uniqShots_pwave))
     shotNum = 0
     for shot in uniqShots_pwave:
