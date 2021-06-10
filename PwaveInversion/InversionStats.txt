@@ -1,4 +1,4 @@
-Time Elapse (min): 1.12 min
-Chi2 = 0.3794
-RMS = 3.2446 ms
+Time Elapse (min): 6.44 min
+Chi2 = 1.1881
+RMS = 1.5882 ms
 Total Iterations = 15

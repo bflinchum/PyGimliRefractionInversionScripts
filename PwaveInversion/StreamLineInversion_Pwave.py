@@ -214,7 +214,7 @@ if __name__ == "__main__":
     are maxError = 0.005 and minError = 0.001
     """
     maxError = 0.005
-    minError = 0.005
+    minError = 0.001
     
     """
     MESH PARAMTERS
@@ -227,8 +227,8 @@ if __name__ == "__main__":
         forward model is but at the cost of cmputaiton time. (sets 
         paraMaxCellSize in functino call)
     """
-    maxDepth = 80
-    meshDx = 0.1
+    maxDepth = 60
+    meshDx = 0.3
     maxTriArea = 7
     
     """
@@ -243,8 +243,8 @@ if __name__ == "__main__":
     maxVel = this is the maximum velocity at teh bottom of the model    
     """
     smoothing = 100
-    vertWeight = 0.2    
-    minVel = 300
+    vertWeight = 0.1
+    minVel = 1000
     maxVel = 4500
     maxIterations = 15
     #*************************************************************************
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     ax = fig2.add_subplot(211)
     pg.show(ra.paraDomain, vel, coverage=ra.standardizedCoverage(),cMin=100,cMax=4000,cmap='jet_r',ax=ax)
     pg.viewer.mpl.drawSensors(ax, data.sensorPositions(), diam=0.5, color="k")
-    #ra.drawRayPaths(ax,color="k")
+    ra.drawRayPaths(ax,color="k")
     ax.set_xlabel('Distance (m)')
     ax.set_ylabel('Elevation (m)')
     ax.set_title('Ray Paths')
@@ -389,7 +389,7 @@ if __name__ == "__main__":
     modTT = np.array(ra.inv.response)
     uniqShots_pwave = np.unique(shotLocs) 
     uniqShots_pwave_xLocs = np.copy(uniqShots_pwave)
-    x = np.array(data.sensorPositions())[:0]
+    x = np.array(data.sensorPositions())[:,0]
     for i in range(0,len(uniqShots_pwave)):
         tmp = int(uniqShots_pwave[i])
         print(tmp)
@@ -405,7 +405,7 @@ if __name__ == "__main__":
     fig4.set_size_inches([11.63,  4.52])
     
     ax2 = fig4.add_subplot(111)
-    ax2.bar(uniqShots_pwave,rmsUniqShots_pwave,width=5,color='tab:blue')
+    ax2.bar(uniqShots_pwave_xLocs,rmsUniqShots_pwave,width=5,color='tab:blue')
     ax2.set_xlabel('Shot Location')
     ax2.set_ylabel('RMS Missfit (ms)')
     ax2.set_title('P-wave Inversion')
